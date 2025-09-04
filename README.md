@@ -66,55 +66,51 @@ Initial adaptive vectors in the executive area are set to the median values obta
 
 ***If you want to set initial adaptive vectors in the exteroceptive, proprioceptivr, and associative areas in the same way with the executive area, please 
 1. comment out the following lines in “er_forward()” functions in “ER_PVRNNLayer” class (and “ER_PVRNNTopLayer” class, if used) in “network.hpp”.
-=========================
-//initialization of posterior with prior
-if(epoch==0 && initial_regression==1){
-    a_mu[s][t][i] = store1;
-    a_sigma[s][t][i] = store2;
-}
-=========================
+
+    //initialization of posterior with prior
+    if(epoch==0 && initial_regression==1){
+        a_mu[s][t][i] = store1;
+        a_sigma[s][t][i] = store2;
+    }
 
 
 2. add the processing in “error_regression.cpp” by referring to the following lines for the executive area,
-=========================
-//set initial adaptive vector in executive area
-vector<vector<vector<double> > > dummy_mu(TEST_SEQ_NUM_LEARNING, vector<vector<double> >(TEST_MAX_LENGTH_LEARNING, vector<double>(executive_z_num, 0)));
-vector<vector<vector<double> > > dummy_sigma(TEST_SEQ_NUM_LEARNING, vector<vector<double> >(TEST_MAX_LENGTH_LEARNING, vector<double>(executive_z_num, 0)));
-for(int s=0;s<TEST_SEQ_NUM_LEARNING;++s){
-    stringstream str_a_mu, str_a_sigma;
-    str_a_mu << "./learning_model/" << "executive" << "/a_mu_" << setw(7) << setfill('0') << s << "_" << trained_model_index << ".txt";
-    str_a_sigma << "./learning_model/" << "executive" << "/a_sigma_" << setw(7) << setfill('0') << s << "_" << trained_model_index << ".txt";
-    set_weight(dummy_mu[s], str_a_mu.str());
-    set_weight(dummy_sigma[s], str_a_sigma.str());
-}
-set_initial_adaptive_vector(executive.a_mu, dummy_mu);
-set_initial_adaptive_vector(executive.a_sigma, dummy_sigma);
-=========================
+
+    //set initial adaptive vector in executive area
+    vector<vector<vector<double> > > dummy_mu(TEST_SEQ_NUM_LEARNING, vector<vector<double> >(TEST_MAX_LENGTH_LEARNING, vector<double>(executive_z_num, 0)));
+    vector<vector<vector<double> > > dummy_sigma(TEST_SEQ_NUM_LEARNING, vector<vector<double> >(TEST_MAX_LENGTH_LEARNING, vector<double>(executive_z_num, 0)));
+    for(int s=0;s<TEST_SEQ_NUM_LEARNING;++s){
+        stringstream str_a_mu, str_a_sigma;
+        str_a_mu << "./learning_model/" << "executive" << "/a_mu_" << setw(7) << setfill('0') << s << "_" << trained_model_index << ".txt";
+        str_a_sigma << "./learning_model/" << "executive" << "/a_sigma_" << setw(7) << setfill('0') << s << "_" << trained_model_index << ".txt";
+        set_weight(dummy_mu[s], str_a_mu.str());
+        set_weight(dummy_sigma[s], str_a_sigma.str());
+    }
+    set_initial_adaptive_vector(executive.a_mu, dummy_mu);
+    set_initial_adaptive_vector(executive.a_sigma, dummy_sigma);
 
 
 ***If you want to set initial adaptive vectors in the executive area in the same way with other areas, please 
 1. comment out or remove the following lines in “error_regression.cpp”.
-=========================
-//set initial adaptive vector in executive area
-vector<vector<vector<double> > > dummy_mu(TEST_SEQ_NUM_LEARNING, vector<vector<double> >(TEST_MAX_LENGTH_LEARNING, vector<double>(executive_z_num, 0)));
-vector<vector<vector<double> > > dummy_sigma(TEST_SEQ_NUM_LEARNING, vector<vector<double> >(TEST_MAX_LENGTH_LEARNING, vector<double>(executive_z_num, 0)));
-for(int s=0;s<TEST_SEQ_NUM_LEARNING;++s){
-    stringstream str_a_mu, str_a_sigma;
-    str_a_mu << "./learning_model/" << "executive" << "/a_mu_" << setw(7) << setfill('0') << s << "_" << trained_model_index << ".txt";
-    str_a_sigma << "./learning_model/" << "executive" << "/a_sigma_" << setw(7) << setfill('0') << s << "_" << trained_model_index << ".txt";
-    set_weight(dummy_mu[s], str_a_mu.str());
-    set_weight(dummy_sigma[s], str_a_sigma.str());
-}
-set_initial_adaptive_vector(executive.a_mu, dummy_mu);
-set_initial_adaptive_vector(executive.a_sigma, dummy_sigma);
-=========================
+
+    //set initial adaptive vector in executive area
+    vector<vector<vector<double> > > dummy_mu(TEST_SEQ_NUM_LEARNING, vector<vector<double> >(TEST_MAX_LENGTH_LEARNING, vector<double>(executive_z_num, 0)));
+    vector<vector<vector<double> > > dummy_sigma(TEST_SEQ_NUM_LEARNING, vector<vector<double> >(TEST_MAX_LENGTH_LEARNING, vector<double>(executive_z_num, 0)));
+    for(int s=0;s<TEST_SEQ_NUM_LEARNING;++s){
+        stringstream str_a_mu, str_a_sigma;
+        str_a_mu << "./learning_model/" << "executive" << "/a_mu_" << setw(7) << setfill('0') << s << "_" << trained_model_index << ".txt";
+        str_a_sigma << "./learning_model/" << "executive" << "/a_sigma_" << setw(7) << setfill('0') << s << "_" << trained_model_index << ".txt";
+        set_weight(dummy_mu[s], str_a_mu.str());
+        set_weight(dummy_sigma[s], str_a_sigma.str());
+    }
+    set_initial_adaptive_vector(executive.a_mu, dummy_mu);
+    set_initial_adaptive_vector(executive.a_sigma, dummy_sigma);
 
 
 2. remove comment-out of the following part in “er_forward()” function in “ER_PVRNNTopLayerLatent” class in “network.hpp”
-=========================
-//initialization of posterior with prior
-if(epoch==0 && t==0){//initialize by unit Gaussian prior N(0,1), or initial prior
-    a_mu[s][t][i] = 0.0;
-    a_sigma[s][t][i] = 0.0;
-}
-=========================
+
+    //initialization of posterior with prior
+    if(epoch==0 && t==0){//initialize by unit Gaussian prior N(0,1), or initial prior
+        a_mu[s][t][i] = 0.0;
+        a_sigma[s][t][i] = 0.0;
+    }
