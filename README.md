@@ -50,7 +50,7 @@ Codes for error regression:
 
 3-1. Learning experiment 
 
-***It may take about 6294.689941[s] to train one neural network (200,000 epoch), with the same hyperparameter setting used in “Idei, H., Ohata, W., Yamashita, Y. et al. Emergence of sensory attenuation based upon the free-energy principle. Sci Rep 12, 14542 (2022). https://doi.org/10.1038/s41598-022-18207-7.”
+***It may take about 6294.689941[s] to train one neural network (100,000 epoch), with the same hyperparameter setting used in “Idei, H., Ohata, W., Yamashita, Y. et al. Emergence of sensory attenuation based upon the free-energy principle. Sci Rep 12, 14542 (2022). https://doi.org/10.1038/s41598-022-18207-7.”
     
     #Compilation and execution
     g++-11 -std=c++14 -O3 -fopenmp learning.cpp -o exe.learning
